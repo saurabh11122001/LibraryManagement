@@ -7,17 +7,17 @@ const PurchasedPage = () => {
     {
       title: "Book 1",
       author: "Author 1",
-      price: "$15.99",
+      price: "15.99",
     },
     {
       title: "Book 2",
       author: "Author 2",
-      price: "$12.49",
+      price: "12.49",
     },
     {
       title: "Book 3",
       author: "Author 3",
-      price: "$20.00",
+      price: "20.00",
     }
   ]);
 
@@ -30,10 +30,10 @@ const PurchasedPage = () => {
         ) : (
           purchasedBooks.map((book, index) => (
             <div className="purchased-book-box" key={index}>
-              <img src="https://t3.ftcdn.net/jpg/09/76/14/74/360_F_976147436_WwBw9oD0vsZ3uRwmIg1ieIlUjiXYHB8u.jpg" alt={book.title} className="purchased-book-image" />
-              <h3 className="purchased-book-title">{book.title}</h3>
-              <p className="purchased-book-author">{book.author}</p>
-              <p className="purchased-book-price">{book.price}</p>
+              
+              <h3 className="purchased-book-title">Book Name: {book.title}</h3>
+              <p className="purchased-book-author"><strong>Author: </strong>{book.author}</p>
+              <p className="purchased-book-price"><strong>Price Rs: </strong>{book.price}</p>
             </div>
           ))
         )}

@@ -26,10 +26,10 @@ const Books = () => {
       <div className="books-container">
         {allBooks?.map((book, index) => (
           <div className="book-box" key={index}>
-            <h3 className="book-title">{book.bookname}</h3>
-            <p className="book-author">{book.author}</p>
-            <p className="book-price">{book.price}</p>
-            <p className="book-price">{book.bookid}</p>
+            <h3 className="book-title"><strong>Book Name: </strong>{book.bookname}</h3>
+            <p className="book-author"><strong>Author: </strong>{book.author}</p>
+            <p className="book-price"><strong>Price Rs: </strong>{book.price}</p>
+            <p className="book-price"><strong>BookId: </strong>{book.bookid}</p>
             <small>Available</small>
             <button 
               className="purchase-button" 

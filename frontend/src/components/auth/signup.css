@@ -55,7 +55,7 @@ body {
   }
   
   .auth-button {
-    background-color: #4f46e5;
+    background: linear-gradient(to right, #2a4365, #2b6cb0); /* Deep blue gradient */
     color: white;
     font-size: 1.1rem;
     padding: 1rem;
