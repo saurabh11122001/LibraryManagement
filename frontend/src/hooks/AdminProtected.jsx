@@ -2,14 +2,17 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const ProtectedRoute = ({children}) => {
+const AdminProtected = ({children}) => {
     const {user} = useSelector(store=>store.auth);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(user===null){
+        if(user===null || user?.role!=='admin'){
           navigate("/");
+        }
+        if(user?.role==='user'){
+          navigate("/home");
         }
       }, []);
 
@@ -19,4 +22,4 @@ const ProtectedRoute = ({children}) => {
         </>
     )
 };
-export default ProtectedRoute;
+export default AdminProtected;

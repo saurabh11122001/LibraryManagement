@@ -1,24 +1,20 @@
 import mongoose from "mongoose";
 
-const purchasedSchema = new mongoose.Schema({
-    bookname: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'book',
-        required: true
+const applicationSchema = new mongoose.Schema({
+    book:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'book',
+        required:true
     },
-    purchased: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    applicant:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
     },
-    issueDate: {
-        type: Date, 
-        required: true 
-    },
-    returnDate: {
-        type: Date, 
-        required: false 
+    status:{
+        type:String,
+        enum:['pending','accepted', 'rejected','returned'],
+        default:'pending'
     }
-}, { timestamps: true });
-
-export const Purchased = mongoose.model("purchased", purchasedSchema);
+},{timestamps:true});
+export const Purchased  = mongoose.model("Application", applicationSchema);

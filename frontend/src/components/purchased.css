@@ -1,76 +1,91 @@
-/* General purchased page styling */
 .purchased-page {
-    max-width: 800px; /* Further reduced width */
-    margin: 2rem auto; /* Reduced margin */
-    padding: 0 1rem; /* Reduced padding */
-    text-align: center;
-  }
-  
-  /* Purchased books title */
-  .purchased-title {
-    font-size: 2.2rem; /* Further reduced title size */
-    color: #333333;
-    margin-bottom: 1.5rem; /* Reduced margin */
-    font-weight: 700;
-  }
-  
-  /* Container for the purchased books */
-  .purchased-books-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller boxes */
-    gap: 1rem; /* Reduced gap between items */
-  }
-  
-  /* Individual purchased book box */
-.purchased-book-box {
-  background-color: white;
-  padding: 0.8rem; /* Further reduced padding */
-  border-radius: 6px; /* Smaller radius */
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
-  text-align: left;
-  transition: transform 0.3s ease; /* Smooth hover effect */
-  border: 1px solid rgb(178, 175, 175);
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for a modern look */
+  font-family: 'Arial', sans-serif; /* Clean and professional font */
+  height: 95vh;
 }
 
-  
-  /* Purchased book image */
-  .purchased-book-image {
-    width: 100%;
-    height: 150px; /* Smaller image height */
-    border-radius: 4px; /* Smaller radius */
-    object-fit: cover;
-  }
-  
-  /* Purchased book title */
-  .purchased-book-title {
-    font-size: 1.2rem; /* Smaller title */
-    color: #469f80;
-    margin: 0.6rem 0; /* Reduced margin */
-  }
-  
-  /* Purchased book author */
-  .purchased-book-author {
-    font-size: 0.8rem; /* Smaller author text */
-    color: #666666;
-    margin-bottom: 0.3rem; /* Reduced margin */
-  }
-  
-  /* Purchased book price */
-  .purchased-book-price {
-    font-size: 0.9rem; /* Smaller price text */
-    color: #4f46e5;
-    margin-bottom: 0.6rem; /* Reduced margin */
-  }
-  
-  /* Display message when no books are purchased */
-  .purchased-books-container p {
-    font-size: 1rem; /* Smaller font size for empty message */
-    color: #666666;
-  }
-  
-  /* Hover effect for the book box */
-  .purchased-book-box:hover {
-    transform: translateY(-4px); /* Slight hover effect */
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
-  }
-  
+.purchased-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.purchased-table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden; /* For rounded corners */
+}
+
+.purchased-table th {
+  background-color: #4CAF50; /* Professional green shade */
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.purchased-table td {
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+
+.purchased-table tr:hover {
+  background-color: #f1f1f1; /* Subtle hover effect */
+}
+
+.purchased-table tbody tr:last-child td {
+  border-bottom: none; /* Remove border from last row */
+}
+
+.return-button {
+  padding: 8px 15px;
+  background-color: #007BFF; /* Modern blue shade */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.return-button:hover {
+  background-color: #0056b3; /* Darker blue for hover */
+}
+
+.return-button {
+  padding: 8px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.return-button:hover {
+  background-color: #0056b3;
+}
+
+.rejected-reason {
+  color: #d9534f; /* Bootstrap's red color */
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.pending-text {
+  color: #f0ad4e; /* Bootstrap's orange color */
+  font-weight: bold;
+}

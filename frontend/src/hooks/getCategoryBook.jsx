@@ -1,31 +1,31 @@
-import { setAllBooks } from '../redux/bookSlice'
+import { setCategoryBook } from '../redux/bookSlice'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading } from '../redux/authSlice'
 
-const useGetAllBooks = () => {
+const getCategoryBook = (name) => {
     const dispatch = useDispatch();
-    const {searchedQuery} = useSelector(store=>store.book);
     useEffect(()=>{
         const fetchAllBooks = async () => {
             try {
                 dispatch(setLoading(true));
-                const res = await axios.get(`http://localhost:8000/api/v1/book/get?keyword=${searchedQuery}`,{withCredentials:true});
+                const res = await axios.get(`http://localhost:8000/api/v1/book/category/${name}`,{withCredentials:true});
                 if(res.data.success){
-                    dispatch(setAllBooks(res.data.books));
-                    dispatch(setLoading(false))
+                    dispatch(setCategoryBook(res.data.books));
+                    console.log(name);
+                    dispatch(setLoading(false));
                 }
             } catch (error) {
                 console.log(error);
-                setLoading(false);
+                dispatch(setLoading(false));
             }
             finally{
-                setLoading(false);
+                dispatch(setLoading(false));
             }
         }
         fetchAllBooks();
     },[])
 }
 
-export default useGetAllBooks
+export default getCategoryBook

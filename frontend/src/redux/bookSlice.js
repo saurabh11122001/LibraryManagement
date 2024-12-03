@@ -7,8 +7,10 @@ const bookSlice = createSlice({
     allBooksAdmin: [],
     singleBook: null,
     searchBookByText: "",
-    allPurchasedBook: [],
+    allRequestedBooks: [],
     searchedQuery: "",
+    categoryBook:[],
+    allAppliedBooks:[],
   },
   reducers: {
     // actions
@@ -24,11 +26,17 @@ const bookSlice = createSlice({
     setSearchBookByText: (state, action) => {
       state.searchBookByText = action.payload;
     },
-    setAllPurchasedBook: (state, action) => {
+    setAllRequestedBooks: (state, action) => {
       state.allPurchasedBook = action.payload;
     },
     setSearchedQuery: (state, action) => {
       state.searchedQuery = action.payload;
+    },
+    setCategoryBook: (state, action) => {
+      state.categoryBook = action.payload;
+    },
+    setAllAppliedBooks: (state, action) => {
+      state.allAppliedBooks = action.payload;
     },
   },
 });
@@ -38,8 +46,10 @@ export const {
   setSingleBook,
   setAdminBooks,
   setSearchBookByText,
-  setAllPurchasedBook,
+  setAllRequestedBooks,
   setSearchedQuery,
+  setCategoryBook,
+  setAllAppliedBooks
 } = bookSlice.actions;
 
 export default bookSlice.reducer;

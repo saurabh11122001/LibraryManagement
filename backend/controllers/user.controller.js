@@ -6,24 +6,35 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, password, role } = req.body;
-         
+
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
                 message: "Something is missing",
                 success: false
             });
-        };
-        
+        }
 
+        // Check if the email already exists
         const user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({
-                message: 'User already exist with this email.',
+                message: 'User already exists with this email.',
                 success: false,
-            })
+            });
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
 
+        // If the role is admin, ensure only one admin exists
+        if (role === 'admin') {
+            const adminExists = await User.findOne({ role: 'admin' });
+            if (adminExists) {
+                return res.status(400).json({
+                    message: 'An admin already exists. Cannot create another admin.',
+                    success: false,
+                });
+            }
+        }
+        // Hash the password and create the user
+        const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({
             fullname,
             email,
@@ -38,8 +49,57 @@ export const register = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            message: "Internal server error.",
+            success: false
+        });
     }
-}
+};
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({role:"user"}, { password: 0 }); // Excludes the password field
+        return res.status(200).json({
+            message: "Users fetched successfully.",
+            users,
+            success: true
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal server error.",
+            success: false
+        });
+    }
+};
+export const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check if the user exists
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found.",
+                success: false,
+            });
+        }
+
+        // Delete the user
+        await User.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            message: "User deleted successfully.",
+            success: true,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal server error.",
+            success: false,
+        });
+    }
+};
+
 export const login = async (req, res) => {
     try {
         const { email, password, role } = req.body;

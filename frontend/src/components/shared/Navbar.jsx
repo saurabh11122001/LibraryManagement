@@ -4,6 +4,7 @@ import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/authSlice";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,10 @@ const Navbar = () => {
       if (res.data.success) {
         dispatch(setUser(null));
         navigate("/");
+        toast.success(res.data.message);
       }
     } catch (error) {
-      console.error("Logout error:", error);
+      toast.error(error);
     }
   };
 
@@ -49,31 +51,24 @@ const Navbar = () => {
     user?.role === 'user' ? (
       // Admin Links
       <>
-        <Link to="/">Home</Link>
-        <Link to="/books">Books</Link>
-        <Link to="/purchased">Purchased</Link>
+        <Link to="/home">Home</Link>
+        <Link to="/books">All Books</Link>
+        <Link to="/purchased">My Books</Link>
       </>
     ) : (
       // User Links
       <>
         <Link to="/dashboard">Dashboard</Link>
-        <Link to="/transaction">Transaction</Link>
-        <Link to="/bookissued">Book Issued</Link>
+        <Link to="/issue">Book Issued</Link>
+        <Link to="/maintain">Maintenance</Link>
       </>
     )
-  ) : (
-    // Links for null or undefined user
-    <>
-      <Link to="/">Home</Link>
-      <Link to="/books">Books</Link>
-      <Link to="/purchased">Purchased</Link>
-    </>
-  )}
+  ) : null}
 
           {/* Profile Circle */}
           {user?<div className="profile-container" onClick={togglePopup}>
             <div className="profile-circle">
-              {user?.name ? user.name.charAt(0).toUpperCase() : "S"}
+              {user?.fullname ? user.fullname.charAt(0).toUpperCase() : "S"}
             </div>
             {isPopupOpen && (
               <div className="profile-popup">
@@ -91,7 +86,7 @@ const Navbar = () => {
                 </button>
               </div>
             )}
-          </div>:<Link to="/login">Login</Link>}
+          </div>:<Link to="/">Login</Link>}
         </div>
       </div>
     </nav>

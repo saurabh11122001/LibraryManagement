@@ -1,0 +1,98 @@
+/* General styles for the page */
+.book-issue-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Table styles */
+.request-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.request-table th,
+.request-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.request-table th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-size: 1rem;
+}
+
+.request-table td {
+  font-size: 0.9rem;
+  color: black;
+  font-weight:600 ;
+}
+
+/* Styles for action buttons */
+.accept-button, .reject-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.accept-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.accept-button:hover {
+  background-color: #218838;
+}
+
+.reject-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.reject-button:hover {
+  background-color: #c82333;
+}
+
+/* Styles for displaying 'N/A' if no date is available */
+.request-table td span {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Add some spacing and responsive styles */
+@media (max-width: 768px) {
+  .request-table th, .request-table td {
+    padding: 8px;
+  }
+
+  .book-issue-page {
+    padding: 10px;
+  }
+}
+.search-bar {
+  margin-bottom: 20px;
+  text-align: center;
+  outline: none;
+}
+
+.search-input {
+  padding: 10px;
+  width: 250px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

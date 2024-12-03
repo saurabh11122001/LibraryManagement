@@ -21,10 +21,16 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    purchased: [
+    description:{
+        type:String
+    },
+    total:{
+        type:Number,
+    },
+    applications: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Purchased',
+            ref: 'Application',
         }
     ]
 },{timestamps:true});

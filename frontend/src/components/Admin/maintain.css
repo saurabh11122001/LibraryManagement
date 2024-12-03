@@ -1,0 +1,91 @@
+.users-management {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .user-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .user-list th, .user-list td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .user-list th {
+    background-color: #f2f2f2;
+  }
+  
+  .password-field {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .delete-user-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  .update-user-btn {
+    background-color: #564dff;
+    color: white;
+    padding: 8px 15px;
+    margin-left: 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-user-btn:hover {
+    background-color: #ff1a1a;
+  }
+  
+  @media (max-width: 768px) {
+    .user-list th, .user-list td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .password-field {
+      width: 120px;
+    }
+  
+    .delete-user-btn {
+      padding: 6px 12px;
+    }
+  }
+  .manage{
+    background-color: aliceblue;
+    border-radius: 10px;
+    width: 10%;
+    font-size: 12px;
+    padding: 1px;
+    height: 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  

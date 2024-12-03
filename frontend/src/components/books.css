@@ -1,93 +1,75 @@
-/* General Books page styling */
+/* General Page Styling */
 .books-page {
-  max-width: 1000px;
-  margin: 3rem auto;
-  padding: 0 1.5rem;
-  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+
+  min-height: 95vh;
 }
 
-/* Books page title */
+/* Title Styling */
 .books-title {
-  font-size: 2.5rem;
-  color: #333333;
-  margin-bottom: 2rem;
-  font-weight: 700;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-/* Container for the books */
+/* Container Styling */
 .books-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller boxes */
-  gap: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 
-/* Individual book box */
-.book-box {
-  background-color: white;
-  padding: 0.8rem; /* Same as before */
-  border-radius: 6px; /* Same as before */
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
-  text-align: left;
-  transition: transform 0.3s ease; /* Smooth hover effect */
-  border: 1px solid rgb(178, 175, 175); /* Border for consistency */
-  width: 25%;
+/* Book Item Styling */
+.book-item {
+  background-color: rgb(229, 220, 220);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Fixed width for consistency */
+  height: 120px; /* Reduced height */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Book image styling */
-.book-image {
-  width: 100%;
-  height: 150px; /* Smaller height for the image */
-  border-radius: 4px;
-  object-fit: cover;
+/* Hover Effect */
+.book-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Book title */
-.book-title {
-  font-size: 1.4rem;
-  color: #4f46e5;
-  margin: 0.8rem 0;
-}
-
-small {
-  color: rgb(25, 196, 25);
-  font-weight: 500;
-}
-
-/* Book author */
-.book-author {
-  font-size: 1rem;
-  color: #666666;
-  margin-bottom: 0.3rem;
-}
-
-/* Book price */
-.book-price {
+/* Header Styling */
+.book-header {
   font-size: 1.2rem;
-  color: #4f46e5;
-  margin-bottom: 0.8rem;
+  margin: 0;
+  color: #444;
+  font-weight: bold;
 }
 
-/* Hover effect for the book box */
-.book-box:hover {
-  transform: translateY(-4px); /* Slight upward shift */
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+/* Author Styling */
+.book-writer {
+  margin: 5px 0;
+  color: #666;
 }
 
-/* Purchased button styling */
-.purchase-button {
-  background-color: #4f46e5;
+/* Details Button Styling */
+.buy-button {
+  text-decoration: none;
   color: white;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  background-color: #007bff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+  align-self: flex-start;
+  transition: background-color 0.3s;
 }
 
-/* Hover effect for the purchase button */
-.purchase-button:hover {
-  background-color: #3b3fd3;
+.buy-button:hover {
+  background-color: #0056b3;
 }

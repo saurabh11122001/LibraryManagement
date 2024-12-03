@@ -1,76 +1,66 @@
-import { Purchased } from "../models/purchased.model.js";
-import { Book } from "../models/book.model.js";
+import { Purchased } from "../models/purchased.model.js";  
+import { Book } from "../models/book.model.js";  
+import mongoose from "mongoose";
 
-// User purchases a book
+
 export const purchaseBook = async (req, res) => {
     try {
         const userId = req.id;
         const bookId = req.params.id;
-
         if (!bookId) {
             return res.status(400).json({
-                message: "Book ID is required.",
+                message: "book id is required.",
                 success: false
-            });
-        }
+            })
+        };
+        const existingApplication = await Purchased.findOne({
+            book: bookId,
+            applicant: userId,
+            status: { $nin: ['returned', 'rejected'] } // Check if status is neither 'returned' nor 'rejected'
+        });
+        
+        
 
-        // Check if the user has already purchased the book
-        const existingPurchase = await Purchased.findOne({ book: bookId, user: userId });
-
-        if (existingPurchase) {
+        if (existingApplication) {
             return res.status(400).json({
-                message: "You have already purchased this book.",
+                message: "You have already applied for this book",
                 success: false
             });
         }
 
-        // Check if the book exists
         const book = await Book.findById(bookId);
         if (!book) {
             return res.status(404).json({
-                message: "Book not found.",
+                message: "book not found",
                 success: false
-            });
+            })
         }
-
-        // Create a new purchase
-        const newPurchase = await Purchased.create({
-            book: bookId,
-            user: userId,
+        const newApplication = await Purchased.create({
+            book:bookId,
+            applicant:userId,
         });
 
-        // Add the purchase to the book
-        book.purchases.push(newPurchase._id);
+        book.applications.push(newApplication._id);
         await book.save();
-
         return res.status(201).json({
-            message: "Book purchased successfully.",
-            success: true
-        });
+            message:"book applied successfully.",
+            success:true
+        })
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            message: "An error occurred while purchasing the book.",
-            success: false
-        });
+        console.log(error);
     }
 };
 
-// Get all purchased books for a user
 export const getPurchasedBooks = async (req, res) => {
     try {
         const userId = req.id;
-
-        const purchases = await Purchased.find({ user: userId })
-            .sort({ createdAt: -1 })
-            .populate({
-                path: 'book',
-                options: { sort: { createdAt: -1 } }
-            });
+        const purchases = await Purchased.find({ applicant: userId })
+            .populate('book')  
+            .sort({ createdAt: -1 });
 
         if (!purchases || purchases.length === 0) {
             return res.status(404).json({
-                message: "No purchased books found.",
+                message: "No purchases found.",
                 success: false
             });
         }
@@ -80,24 +70,18 @@ export const getPurchasedBooks = async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            message: "An error occurred while fetching purchased books.",
-            success: false
-        });
+        console.log(error);
     }
 };
 
-// Admin views all users who purchased a specific book
 export const getPurchasers = async (req, res) => {
     try {
         const bookId = req.params.id;
-
         const book = await Book.findById(bookId).populate({
-            path: 'purchases',
+            path: 'purchased',
             options: { sort: { createdAt: -1 } },
             populate: {
-                path: 'user'
+                path: 'applicant',  
             }
         });
 
@@ -113,15 +97,45 @@ export const getPurchasers = async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.error(error);
+        console.log(error);
+    }
+};
+
+export const getBookApplicationsCount = async (req, res) => {
+    try {
+        const bookId = req.params.id;  // Assuming the book ID is passed as a parameter
+
+        // Find the applications (purchases) for a specific book
+        const applicants = await Purchased.find().populate({
+            path: 'book', // populate the book details
+        }).populate({
+            path: 'applicant', // populate the applicant (user) details
+        }).sort({createdAt:-1});
+
+        if (!applicants || applicants.length === 0) {
+            return res.status(404).json({
+                message: "No applicants found for this book.",
+                success: false
+            });
+        }
+
+        // Get the number of applicants (purchases)
+        return res.status(200).json({
+            message: `Total ${applicants.length} applicants for this book.`,
+            applicants,
+            success: true
+        });
+
+    } catch (error) {
+        console.log(error);
         return res.status(500).json({
-            message: "An error occurred while fetching purchasers.",
+            message: "Something went wrong.",
             success: false
         });
     }
 };
 
-// Update purchase status
+
 export const updatePurchaseStatus = async (req, res) => {
     try {
         const { status } = req.body;
@@ -130,32 +144,74 @@ export const updatePurchaseStatus = async (req, res) => {
         if (!status) {
             return res.status(400).json({
                 message: "Status is required.",
-                success: false
+                success: false,
             });
         }
 
-        // Find the purchase by ID
-        const purchase = await Purchased.findById(purchaseId);
+        // Find the purchase by purchase ID
+        const purchase = await Purchased.findOne({ _id: purchaseId });
         if (!purchase) {
             return res.status(404).json({
                 message: "Purchase not found.",
-                success: false
+                success: false,
             });
         }
 
         // Update the status
         purchase.status = status.toLowerCase();
+
+        // Handle different statuses
+        if (purchase.status === "accepted") {
+            const book = await Book.findOne({ _id: purchase.book._id }); // Assuming purchase has a reference to the bookId
+            if (book) {
+                book.total = book.total > 0 ? book.total - 1 : 0; // Ensure count doesn't go negative
+                await book.save();
+            } else {
+                return res.status(404).json({
+                    message: "Associated book not found.",
+                    success: false,
+                });
+            }
+        }
+
+        // Mark the purchase as returned or rejected
+        if (purchase.status === "returned" || purchase.status === "rejected") {
+            const book = await Book.findOne({ _id: purchase.book._id }); // Find the associated book
+            if (book) {
+                if (purchase.status === "returned") {
+                    // Add one book back to the total if returned
+                    book.total += 1;
+                }
+
+                // Remove the purchaseId from the applications array
+                book.applications = book.applications.filter((applicant) => {
+                    return applicant.toString() !== purchaseId.toString();
+                });
+
+                await book.save();
+            } else {
+                return res.status(404).json({
+                    message: "Associated book not found.",
+                    success: false,
+                });
+            }
+        }
+
         await purchase.save();
 
         return res.status(200).json({
-            message: "Purchase status updated successfully.",
-            success: true
+            message: "Status updated successfully.",
+            success: true,
         });
     } catch (error) {
-        console.error(error);
+        console.error("Error updating status:", error);
         return res.status(500).json({
-            message: "An error occurred while updating purchase status.",
-            success: false
+            message: "An error occurred.",
+            success: false,
         });
     }
 };
+
+
+
+

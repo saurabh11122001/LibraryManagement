@@ -1,0 +1,85 @@
+/* General Page Styling */
+.category-page-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    height: 95vh;
+  }
+  
+  /* Title Styling */
+  .category-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Book List Container */
+  .book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  /* Book Card Styling */
+  .book-card {
+    background-color: rgb(203, 200, 200);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Fixed width for consistency */
+    height: 120px; /* Reduced height */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Hover Effect */
+  .book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Card Title Styling */
+  .book-card-title {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #444;
+    font-weight: bold;
+  }
+  
+  /* Card Author Styling */
+  .book-card-author {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  /* Details Button Styling */
+  .details-button {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9rem;
+    align-self: flex-start;
+    transition: background-color 0.3s;
+  }
+  
+  .details-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Not Found Text */
+  .category-page-container small {
+    text-align: center;
+    display: block;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  
